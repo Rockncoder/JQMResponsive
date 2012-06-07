@@ -1,0 +1,66 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+	<title>JQM Responsive</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1" />
+	<meta name="apple-mobile-web-app-capable" content="yes"/>
+	<link href="content/jquery.mobile-1.1.0.min.css" rel="stylesheet" type="text/css" />
+	<link href="content/style.css" rel="stylesheet" type="text/css" />
+	<script src="scripts/jquery-1.7.1.min.js" type="text/javascript"></script>
+	<script src="scripts/jquery.mobile-1.1.0.min.js" type="text/javascript"></script>
+</head>
+<body>
+	<div id="page1" data-role="page" data-rockncoder-jspage="page1">
+		<header data-role="header" data-position="fixed">
+			<h1>Page One</h1>
+		</header>
+		<section data-role="content">
+			<!-- The manipulation of the content-secondary and content-primary classes is the key thing to understand -->
+			<div class="content-secondary">
+				<fieldset id="squirrels" data-role="controlgroup">
+					<legend>Pick Your Favorite Squirrel:</legend>
+					<input type="radio" name="radio-choice-1" id="radio-choice-1" value="./images/SquirrelFox.jpg" checked="checked" />
+					<label for="radio-choice-1">Fox Squirrel</label>
+
+					<input type="radio" name="radio-choice-1" id="radio-choice-2" value="./images/SquirrelGrey.jpg"  />
+					<label for="radio-choice-2">Grey Squirrel</label>
+
+					<input type="radio" name="radio-choice-1" id="radio-choice-3" value="./images/SquirrelRed.jpg"  />
+					<label for="radio-choice-3">Red Squirrel</label>
+				</fieldset>
+				<div class="show-page-button">
+					<a href="#page2" data-role="button" data-transition="slide">See Your Squirrel!</a>
+				</div>
+			</div>
+			<div id="page1Chart" class="content-primary">
+				<div>
+					<!-- The trick is that there are two images, one on each page  -->
+					<img src="./images/SquirrelFox.jpg" class="squirrel-image center" />
+				</div>
+			</div>
+		</section>
+		<footer data-role="footer" data-position="fixed">
+			<h1>a tasty ad goes here</h1>
+		</footer>
+	</div>
+	<div id="page2" data-role="page" data-rockncoder-jspage="page2">
+		<header data-role="header" data-position="fixed">
+			<h1>Image</h1>
+		</header>
+		<section data-role="content">
+			<!-- Note: there are no content-xxxs here  -->
+			<a href="#page1" data-role="button" data-transition="slide">Choose Another Squirrel</a>
+			<div>
+				<!-- Here is the second image, note: the class is the same as the first image -->
+				<img src="./images/SquirrelFox.jpg" class="squirrel-image center"  />
+			</div>
+		</section>
+		<footer data-role="footer" data-position="fixed">
+			<h1>a tasty ad goes here</h1>
+		</footer>
+	</div>
+	<script src="scripts/hideAddressBar.js" type="text/javascript"></script>
+	<script src="scripts/app.js" type="text/javascript"></script>
+</body>
+</html>
