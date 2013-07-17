@@ -1,57 +1,74 @@
-﻿
-var RocknCoder = RocknCoder || {};
-RocknCoder.Pages = RocknCoder.Pages || {};
+﻿var RocknCoder = RocknCoder || {};
 
-RocknCoder.Pages.Kernel = function (event) {
-	var that = this,
-		eventType = event.type,
-		pageName = $(this).attr("data-rockncoder-jspage");
-	if (RocknCoder && RocknCoder.Pages && pageName && RocknCoder.Pages[pageName] && RocknCoder.Pages[pageName][eventType]) {
-		RocknCoder.Pages[pageName][eventType].call(that);
-	}
-};
+(function () {
+  "use strict";
 
-RocknCoder.Pages.Events = function () {
-	$("div[data-rockncoder-jspage]").live(
-		'pagebeforecreate pagecreate pagebeforeload pagebeforeshow pageshow pagebeforechange pagechange pagebeforehide pagehide pageinit',
-		RocknCoder.Pages.Kernel).live(
-		"pageinit orientationchange", RocknCoder.hideAddressBar);
-} ();
+  RocknCoder.Pages = RocknCoder.Pages || {};
+  // put the page events into one string
+  var Events = "pagebeforeshow pageshow pagechange pagebeforehide pagehide",
+    DocEvents = "pagebeforechange orientationchange",
+    Kernel = function (event, data) {
+      var that = this,
+        eventType = event.type,
+        pageName = $(this).attr("data-rnc-jspage");
 
-// page one monitors the input:radio, if one change, we grab its value and
-// use it to update src of all of the squirrel image
-RocknCoder.Pages.page1 = function () {
-	var pageinit = function(){
-	},
-	pageshow = function () {
-		$("input:radio").bind('change', function(event){
-			var fileName = this.value;
-			// this will update the src on ALL of the images
-			$(".squirrel-image").attr("src",fileName);
-		});
-	},
-	pagehide = function () {
-		$("input:radio").unbind();
-	};
-	return {
-		pageinit: pageinit,
-		pageshow: pageshow,
-		pagehide: pagehide
-	}
-}();
+      console.log("Event = " + eventType + ", " + pageName);
+      if (RocknCoder && RocknCoder.Pages && pageName && RocknCoder.Pages[pageName] && RocknCoder.Pages[pageName][eventType]) {
+        RocknCoder.Pages[pageName][eventType].call(that, event, data);
+      }
+    },
+    hookDocEvents = function (event, data) {
+      // find the active page
+      var activePage = $.mobile.activePage || $("div[data-rnc-jspage]").eq(0);
+      Kernel.call(activePage, event, data);
+    };
 
-// page two does nothing and doesn't do anything, this function could be deleted
-RocknCoder.Pages.page2 = function () {
-	var pageinit = function(){
-		},
-		pageshow = function () {
-		},
-		pagehide = function () {
-		};
-	return {
-		pageinit: pageinit,
-		pageshow: pageshow,
-		pagehide: pagehide
-	}
-}();
+  // anonymous function which binds to the page's events
+  (function () {
+    $(document).on(DocEvents, function (event, data) {
+      hookDocEvents(event, data);
+    });
 
+    $("div[data-rnc-jspage]").on(Events, Kernel);
+  }());
+
+  // anonymous function which binds to the document's pageload event
+  (function () {
+    $(document).bind(
+      'pageload',
+      function () {
+        $(document)
+          // to make sure we aren't double hooking events clear them all
+          .off(DocEvents)
+          .on(DocEvents, function (event, data) {
+            hookDocEvents(event, data);
+          });
+
+        $("div[data-rnc-jspage]")
+          // to make sure we aren't double hooking events clear them all
+          .off(Events)
+          // then hook them all  (the newly loaded page is in DOM at this point)
+          .on(Events, Kernel);
+      }
+    );
+  }());
+
+  // size the content area
+  RocknCoder.Dimensions = (function () {
+    var get = function () {
+      var isFirstPass = false,
+        isIPhone = (/iphone/gi).test(navigator.appVersion),
+        width = $(window).width(),
+        height = $(window).height() + (isIPhone ? 60 : 0),
+        hHeight = $('header').outerHeight(),
+        fHeight = $('footer').outerHeight();
+      return {
+        width: width,
+        height: height - hHeight - fHeight
+      };
+    };
+    return {
+      get: get
+    };
+  }());
+}());

@@ -1,4 +1,25 @@
 
+
+
+
+
+/*
+ * Begin by defining all of the global classes
+ */
+
+img.center {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/*
+ * Then define of all of the things for the largest widths
+ */
+h1:after{
+    content: ': Desktop';
+}
+
 .content-secondary {
 	width: 40%;
 	float: left;
@@ -13,16 +34,6 @@
 	display: none;
 }
 
-img.center {
-	display: block;
-	margin-left: auto;
-	margin-right: auto;
-}
-
-/* the ':after' selector adds 'content' after the h1 tag */
-h1:after{
-	content: ': Desktop';
-}
 /* We use CSS3 media queries to determine which CSS to use
 ** There are no standards for the size of devices, you will have to determine YOUR best guess,
 ** which won't be perfect, but will work in most cases.
