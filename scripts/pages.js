@@ -7,12 +7,11 @@
 var RocknCoder = RocknCoder || {};
 RocknCoder.Pages = RocknCoder.Pages || {};
 
-// page one monitors the input:radio, if one change, we grab its value and
-// use it to update src of all of the squirrel image
+/* page one monitors the input:radio, if one change, we grab its value and */
+/* use it to update src of all of the squirrel image */
+
 RocknCoder.Pages.page1 = function () {
   return {
-    pageinit: function(){
-    },
     pageshow: function () {
       $("input:radio").on('change', function(event){
         var fileName = this.value;
@@ -26,11 +25,9 @@ RocknCoder.Pages.page1 = function () {
   }
 }();
 
-// page two does nothing and doesn't do anything, this function could be deleted
+/* page two does nothing, this function could be deleted */
 RocknCoder.Pages.page2 = function () {
   return {
-    pageinit: function () {
-    },
     pageshow: function () {
     },
     pagehide: function () {

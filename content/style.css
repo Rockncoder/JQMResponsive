@@ -1,12 +1,5 @@
 
 
-
-
-
-/*
- * Begin by defining all of the global classes
- */
-
 img.center {
     display: block;
     margin-left: auto;
@@ -14,93 +7,108 @@ img.center {
 }
 
 /*
- * Then define of all of the things for the largest widths
- */
-h1:after{
-    content: ': Desktop';
+** We begin by defining "mobile first"
+*/
+
+
+/*
+** mobile device class
+*/
+h1:after {
+    content: ': Mobile';
 }
 
 .content-secondary {
-	width: 40%;
-	float: left;
+    width: 100%;
 }
 
 .content-primary {
-	width: 60%;
-	float: left;
+    display: none;
 }
 
-.show-page-button{
-	display: none;
+.show-page-button {
+    display: block;
 }
 
-/* We use CSS3 media queries to determine which CSS to use
+.squirrel-image {
+    width: 290px;
+}
+
+/*
+** We use CSS3 media queries to determine which CSS to use
 ** There are no standards for the size of devices, you will have to determine YOUR best guess,
 ** which won't be perfect, but will work in most cases.
 ** if our width is 1024 or less assume and orientation portrait
 */
-@media screen and (max-width: 1024px) and (orientation:portrait)
-{
-	h1:after{
-		content: ': TABLET';
-	}
+@media screen and (min-width: 480px) and (orientation:portrait) {
+    h1:after {
+        content: ': TABLET';
+    }
 
-	.content{
-		height: 100%;
-	}
+    .content {
+        height: 100%;
+    }
 
-	.content-secondary {
-		width: 100%;
-	}
+    .content-secondary {
+        width: 100%;
+    }
 
-	.content-primary {
-		width: 100%;
-		float: left;
-		height: 500px;
-	}
-}
+    .content-primary {
+        display: block;
+        width: 100%;
+        float: left;
+        height: 500px;
+    }
 
-/* same dimensions, but landscape orientation */
-@media screen and (max-width: 1024px) and (orientation:landscape)
-{
-	h1:after{
-		content: ': TABLET';
-	}
-
-	.content-secondary {
-		width: 40%;
-		float: left;
-	}
-
-	.content-primary {
-		width: 60%;
-		float: left;
-	}
-
-    .show-page-button{
-	    display: none;
+    .show-page-button {
+        display: none;
     }
 }
 
-@media screen and (max-width: 480px)
-{
-	h1:after{
-		content: ': Mobile';
-	}
+/*
+** same dimensions, but landscape orientation
+*/
+@media screen and (min-width: 480px) and (orientation:landscape) {
+    h1:after {
+        content: ': TABLET';
+    }
 
-	.content-secondary {
-		width: 100%;
-	}
+    .content-secondary {
+        width: 40%;
+        float: left;
+    }
 
-	.content-primary {
-		display: none;
-	}
+    .content-primary {
+        display: block;
+        width: 60%;
+        float: left;
+    }
 
-	.show-page-button{
-		display: block;
-	}
+    .show-page-button {
+        display: none;
+    }
+}
 
-	.squirrel-image{
-		width: 290px;
-	}
+/*
+** the ':after' selector adds 'content' after the h1 tag
+*/
+@media screen and (min-width: 1024px) {
+    h1:after {
+        content: ': Desktop';
+    }
+
+    .content-secondary {
+        width: 40%;
+        float: left;
+    }
+
+    .content-primary {
+        display: block;
+        width: 60%;
+        float: left;
+    }
+
+    .show-page-button {
+        display: none;
+    }
 }
