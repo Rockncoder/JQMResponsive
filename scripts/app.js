@@ -12,7 +12,7 @@
         eventType = event.type,
         pageName = $(this).attr("data-rnc-jspage");
 
-      console.log("Event = " + eventType + ", " + pageName);
+      //console.log("Event = " + eventType + ", " + pageName);
       if (RocknCoder && RocknCoder.Pages && pageName && RocknCoder.Pages[pageName] && RocknCoder.Pages[pageName][eventType]) {
         RocknCoder.Pages[pageName][eventType].call(that, event, data);
       }
